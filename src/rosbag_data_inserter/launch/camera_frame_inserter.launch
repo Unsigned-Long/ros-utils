@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<launch>
+    <node pkg="rosbag_data_inserter" type="camera_frame_inserter" name="camera_frame_inserter_node" output="screen">
+        <param name="src_bag_path" value="/home/csl/dataset/LIC-Calib/real_world/data_2022118202932/lidar/lidar.bag" type="string"/>
+        <param name="dst_bag_path" value="/home/csl/dataset/LIC-Calib/real_world/data_2022118202932/lidar_camera.bag" type="string"/>
+
+        <param name="image_timestamp_filename" value="/home/csl/dataset/LIC-Calib/real_world/data_2022118202932/stamp_cam0.txt" type="string"/>
+        <param name="image_dir" value="/home/csl/dataset/LIC-Calib/real_world/data_2022118202932/image/cam0" type="string"/>
+
+        <param name="lidar_src_topic" value="/velodyne_points" type="string"/>
+        <param name="lidar_dst_topic" value="/lidar_raw_frames" type="string"/>
+        <param name="lidar_dst_frame_id" value="lidar" type="string"/>
+
+        <param name="camera_dst_topic" value="/camera_raw_frames" type="string"/>
+        <param name="camera_dst_frame_id" value="camera" type="string"/>
+
+    </node>
+</launch>

@@ -11,6 +11,7 @@
 #include "sensor_msgs/Imu.h"
 #include "velodyne_msgs/VelodyneScan.h"
 #include "sensor_msgs/PointCloud2.h"
+#include "cv_bridge/cv_bridge.h"
 
 struct IMUFrame {
     double timeStamp;
@@ -68,14 +69,7 @@ long double ToUNIXT(int GWeek, double SOW) {
 int main(int argc, char **argv) {
     ros::init(argc, argv, "imu_frame_inserter_node");
     LOG_PROCESS("loading ros params...")
-    /**
-        <param name="lidar_src_topic" value="/velodyne_points" type="string"/>
-        <param name="lidar_dst_topic" value="/lidar_raw_frames" type="string"/>
-        <param name="lidar_dst_frame_id" value="/lidar" type="string"/>
 
-        <param name="imu_dst_topic" value="/imu_raw_frames" type="string"/>
-        <param name="imu_dst_frame_id" value="/imu" type="string"/>
-     */
     std::string srcBagPath, dstBagPath, imuFilename;
     std::string lidarSrcTopic, lidarDstTopic, lidarDstFrameId;
     std::string imuDstTopic, imuDstFrameId;
@@ -92,8 +86,9 @@ int main(int argc, char **argv) {
 
     LOG_VAR(srcBagPath)
     LOG_VAR(dstBagPath)
+    LOG_ENDL()
     LOG_VAR(imuFilename)
-
+    LOG_ENDL()
     LOG_VAR(lidarSrcTopic, lidarDstTopic, lidarDstFrameId)
     LOG_VAR(imuDstTopic, imuDstFrameId)
 
