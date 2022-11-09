@@ -120,6 +120,7 @@ catkin_package(
 include_directories(
         # include
         ${catkin_INCLUDE_DIRS}
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 ## Declare a C++ library
@@ -137,6 +138,7 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(imu_frame_inserter src/imu_frame_inserter.cpp)
 add_executable(camera_frame_inserter src/camera_frame_inserter.cpp)
+add_executable(imu_camera_frame_inserter src/imu_camera_frame_inserter.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -156,6 +158,11 @@ target_link_libraries(
 
 target_link_libraries(
         camera_frame_inserter
+        ${catkin_LIBRARIES}
+)
+
+target_link_libraries(
+        imu_camera_frame_inserter
         ${catkin_LIBRARIES}
 )
 

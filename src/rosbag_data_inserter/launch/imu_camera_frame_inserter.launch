@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<launch>
+    <node pkg="rosbag_data_inserter" type="imu_camera_frame_inserter" name="imu_camera_frame_inserter_node" output="screen">
+        <param name="src_bag_path" value="/home/csl/dataset/LIC-Calib/real_world/data_202211820504/lidar/lidar.bag" type="string"/>
+        <param name="dst_bag_path" value="/home/csl/dataset/LIC-Calib/real_world/data_202211820504/lidar_imu_camera.bag" type="string"/>
+
+        <param name="imu_filename" value="/home/csl/dataset/LIC-Calib/real_world/data_202211820504/imu_adis.txt" type="string"/>
+
+        <param name="image_timestamp_filename" value="/home/csl/dataset/LIC-Calib/real_world/data_202211820504/stamp_cam0.txt" type="string"/>
+        <param name="image_dir" value="/home/csl/dataset/LIC-Calib/real_world/data_202211820504/image/cam0" type="string"/>
+
+        <param name="lidar_src_topic" value="/velodyne_points" type="string"/>
+        <param name="lidar_dst_topic" value="/lidar_raw_frames" type="string"/>
+        <param name="lidar_dst_frame_id" value="lidar" type="string"/>
+
+        <param name="imu_dst_topic" value="/imu_raw_frames" type="string"/>
+        <param name="imu_dst_frame_id" value="imu" type="string"/>
+
+        <param name="camera_dst_topic" value="/camera_raw_frames" type="string"/>
+        <param name="camera_dst_frame_id" value="camera" type="string"/>
+
+    </node>
+</launch>

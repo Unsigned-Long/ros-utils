@@ -3,68 +3,7 @@
 //
 #include <ostream>
 #include "ros/ros.h"
-#include "artwork/logger/logger.h"
-#include "artwork/csv/csv.h"
-#include "filesystem"
-#include "rosbag/bag.h"
-#include "rosbag/view.h"
-#include "sensor_msgs/Imu.h"
-#include "velodyne_msgs/VelodyneScan.h"
-#include "sensor_msgs/PointCloud2.h"
-#include "cv_bridge/cv_bridge.h"
-
-struct IMUFrame {
-    double timeStamp;
-    double gx;
-    double gy;
-    double gz;
-    double ax;
-    double ay;
-    double az;
-
-    [[nodiscard]] sensor_msgs::Imu ToSensorMsg(const std::string &frameId) const {
-        sensor_msgs::Imu imuMsg;
-
-        imuMsg.header.stamp = ros::Time(timeStamp);
-        imuMsg.header.frame_id = frameId;
-
-        imuMsg.linear_acceleration.x = ax;
-        imuMsg.linear_acceleration.y = ay;
-        imuMsg.linear_acceleration.z = az;
-
-        imuMsg.angular_velocity.x = gx;
-        imuMsg.angular_velocity.y = gy;
-        imuMsg.angular_velocity.z = gz;
-
-        return imuMsg;
-    }
-
-    friend std::ostream &operator<<(std::ostream &os, const IMUFrame &frame) {
-        os << "timeStamp: " << frame.timeStamp << " gx: " << frame.gx << " gy: " << frame.gy << " gz: " << frame.gz
-           << " ax: " << frame.ax << " ay: " << frame.ay << " az: " << frame.az;
-        return os;
-    }
-};
-
-constexpr double UNIX_GPS_DIF = 315964800;
-constexpr double GPS_TIME_LEAPSEC = 18;
-constexpr double SECOND_PER_WEEK = 604800;
-
-std::pair<int, double> ToGPST(double UNIXT) {
-    std::pair<int, double> GPST;
-
-    double gpsSec = UNIXT + GPS_TIME_LEAPSEC - UNIX_GPS_DIF;
-    int gWeek = int(gpsSec / SECOND_PER_WEEK);
-    double sow = gpsSec - gWeek * SECOND_PER_WEEK;
-    GPST.first = gWeek;
-    GPST.second = sow;
-    return GPST;
-}
-
-long double ToUNIXT(int GWeek, double SOW) {
-    long double UNIXT = GWeek * SECOND_PER_WEEK + SOW + UNIX_GPS_DIF - GPS_TIME_LEAPSEC;
-    return UNIXT;
-}
+#include "rosbag_data_inserter/helper.h"
 
 int main(int argc, char **argv) {
     ros::init(argc, argv, "imu_frame_inserter_node");
