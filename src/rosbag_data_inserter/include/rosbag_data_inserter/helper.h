@@ -5,8 +5,8 @@
 #ifndef ROS_UTILS_HELPER_H
 #define ROS_UTILS_HELPER_H
 
-#include "artwork/logger/logger.h"
-#include "artwork/csv/csv.h"
+#include "thirdparty/csv/src/include/csv.h"
+#include "thirdparty/logger/src/include/logger.h"
 #include "filesystem"
 #include "rosbag/bag.h"
 #include "rosbag/view.h"

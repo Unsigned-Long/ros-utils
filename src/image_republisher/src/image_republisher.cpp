@@ -3,7 +3,7 @@
 //
 
 #include "ros/ros.h"
-#include "artwork/logger/logger.h"
+#include "thirdparty/logger/src/include/logger.h"
 #include <filesystem>
 #include <algorithm>
 #include "sensor_msgs/Image.h"

@@ -1,0 +1,6 @@
+[submodule "src/thirdparty/logger"]
+	path = src/thirdparty/logger
+	url = https://github.com/Unsigned-Long/logger.git
+[submodule "src/thirdparty/csv"]
+	path = src/thirdparty/csv
+	url = https://github.com/Unsigned-Long/CSV-Handler.git

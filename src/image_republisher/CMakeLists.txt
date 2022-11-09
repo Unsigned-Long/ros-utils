@@ -120,6 +120,7 @@ catkin_package(
 include_directories(
         # include
         ${catkin_INCLUDE_DIRS}
+        ${CMAKE_CURRENT_SOURCE_DIR}/..
 )
 
 ## Declare a C++ library
