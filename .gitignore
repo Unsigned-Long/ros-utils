@@ -1,0 +1,5 @@
+/.idea
+/build
+/devel
+/src/image_republisher/bag/
+/cmake-build-debug/

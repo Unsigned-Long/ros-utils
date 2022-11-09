@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<launch>
+
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find rosbag_data_inserter)/config/config.rviz"/>
+
+    <arg name="angular_velocity" value="/imu_raw_frames/angular_velocity"/>
+
+    <arg name="linear_acceleration" value="/imu_raw_frames/linear_acceleration"/>
+
+    <node pkg="rqt_plot" type="rqt_plot" name="rqt_plot" args="$(arg angular_velocity) $(arg linear_acceleration)"/>
+</launch>

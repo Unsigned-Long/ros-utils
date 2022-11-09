@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<launch>
+    <node pkg="rosbag_data_inserter" type="imu_frame_inserter" name="imu_frame_inserter_node" output="screen">
+        <param name="src_bag_path" value="/home/csl/dataset/LIC-Calib/real_world/data_2022118202932/lidar/lidar.bag" type="string"/>
+        <param name="dst_bag_path" value="/home/csl/dataset/LIC-Calib/real_world/data_2022118202932/lidar_imu.bag" type="string"/>
+        <param name="imu_filename" value="/home/csl/dataset/LIC-Calib/real_world/data_2022118202932/imu_adis.txt" type="string"/>
+
+        <param name="lidar_src_topic" value="/velodyne_points" type="string"/>
+        <param name="lidar_dst_topic" value="/lidar_raw_frames" type="string"/>
+        <param name="lidar_dst_frame_id" value="lidar" type="string"/>
+
+        <param name="imu_dst_topic" value="/imu_raw_frames" type="string"/>
+        <param name="imu_dst_frame_id" value="imu" type="string"/>
+
+    </node>
+</launch>

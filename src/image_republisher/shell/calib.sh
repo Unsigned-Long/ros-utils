@@ -1,0 +1,1 @@
+# rosrun kalibr kalibr_calibrate_cameras --bag cam_calib_2022-11-08-18-49-53.bag --topics /camera/image --models pinhole-radtan --target ../config/april_6x6.yaml
