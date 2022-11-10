@@ -1,21 +1,15 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(rosbag_reader)
+project(raw_imu_decode)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 add_compile_options(-std=c++17)
-
+set(CMAKE_BUILD_TYPE "Release")
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(
         catkin REQUIRED COMPONENTS
-        rosbag
         roscpp
-        sensor_msgs
-        std_msgs
-        cv_bridge
-        nav_msgs
-        pcl_conversions
 )
 
 ## System dependencies are found with CMake's conventions
@@ -75,7 +69,7 @@ find_package(
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
 #   DEPENDENCIES
-#   sensor_msgs#   std_msgs
+#   std_msgs  # Or other packages containing msgs
 # )
 
 ################################################
@@ -109,8 +103,8 @@ find_package(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
         #  INCLUDE_DIRS include
-        #  LIBRARIES rosbag_reader
-        #  CATKIN_DEPENDS rosbag roscpp sensor_msgs std_msgs
+        #  LIBRARIES raw_imu_decode
+        #  CATKIN_DEPENDS roscpp
         #  DEPENDS system_lib
 )
 
@@ -128,7 +122,7 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/rosbag_reader.cpp
+#   src/${PROJECT_NAME}/raw_imu_decode.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -139,7 +133,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(rosbag_reader src/rosbag_reader.cpp)
+add_executable(raw_imu_decode src/raw_imu_decode.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -152,9 +146,10 @@ add_executable(rosbag_reader src/rosbag_reader.cpp)
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(rosbag_reader
+target_link_libraries(
+        raw_imu_decode
         ${catkin_LIBRARIES}
-        )
+)
 
 #############
 ## Install ##
@@ -203,7 +198,7 @@ target_link_libraries(rosbag_reader
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_rosbag_reader.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_raw_imu_decode.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

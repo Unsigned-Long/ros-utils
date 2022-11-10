@@ -12,7 +12,7 @@
 #include <filesystem>
 #include <iomanip>
 #include <utility>
-#include "artwork/logger/logger.h"
+#include "thirdparty/logger/src/include/logger.h"
 #include "nav_msgs/Odometry.h"
 #include "sensor_msgs/PointCloud2.h"
 #include <pcl_conversions/pcl_conversions.h>
