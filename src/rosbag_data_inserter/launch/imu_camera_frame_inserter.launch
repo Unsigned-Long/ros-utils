@@ -3,17 +3,17 @@
     <!--  param to change: 'src_bag_path', 'dst_bag_path', 'imu_filename', 'image_timestamp_filename', 'image_dir'  -->
     <node pkg="rosbag_data_inserter" type="imu_camera_frame_inserter" name="imu_camera_frame_inserter_node"
           output="screen">
-        <param name="src_bag_path" value="/home/csl/dataset/LIC-Calib/real_world/data_202211820504/lidar/lidar.bag"
+        <param name="src_bag_path" value="/home/csl/dataset/LIC-Calib/real_world/data_2022119215348/lidar/lidar.bag"
                type="string"/>
-        <param name="dst_bag_path" value="/home/csl/dataset/LIC-Calib/real_world/data_202211820504/lidar_imu_camera.bag"
+        <param name="dst_bag_path" value="/home/csl/dataset/LIC-Calib/real_world/data_2022119215348/lidar_imu_camera.bag"
                type="string"/>
 
-        <param name="imu_filename" value="/home/csl/dataset/LIC-Calib/real_world/data_202211820504/imu_adis.txt"
+        <param name="imu_filename" value="/home/csl/dataset/LIC-Calib/real_world/data_2022119215348/imu_adis_new.txt"
                type="string"/>
 
         <param name="image_timestamp_filename"
-               value="/home/csl/dataset/LIC-Calib/real_world/data_202211820504/stamp_cam0.txt" type="string"/>
-        <param name="image_dir" value="/home/csl/dataset/LIC-Calib/real_world/data_202211820504/image/cam0"
+               value="/home/csl/dataset/LIC-Calib/real_world/data_2022119215348/stamp_rearrange_cam0.txt" type="string"/>
+        <param name="image_dir" value="/home/csl/dataset/LIC-Calib/real_world/data_2022119215348/image_rearrange/cam0"
                type="string"/>
 
         <param name="lidar_src_topic" value="/velodyne_points" type="string"/>

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <launch>
     <node pkg="raw_imu_decode" type="raw_imu_reconstructor" name="raw_imu_reconstructor_node" output="screen">
-        <param name="raw_imu_filename" value="/home/csl/dataset/LIC-Calib/real_world/raw_imu/raw_data.imu" type="string"/>
-
-        <param name="src_imu_adis" value="/home/csl/dataset/LIC-Calib/real_world/notuse_data_2022119212815/imu_adis.txt" type="string"/>
-        <param name="dst_imu_adis" value="/home/csl/dataset/LIC-Calib/real_world/notuse_data_2022119212815/imu_adis_new.txt" type="string"/>
+        <param name="raw_imu_filename" value="/home/csl/dataset/LIC-Calib/real_world/raw_imu/raw_data.imu"
+               type="string"/>
+        <param name="dst_imu_adis"
+               value="/home/csl/dataset/LIC-Calib/real_world/data_2022119215348/imu_adis_new.txt" type="string"/>
+        <param name="image_timestamp"
+               value="/home/csl/dataset/LIC-Calib/real_world/data_2022119215348/stamp_rearrange_cam0.txt" type="string"/>
 
     </node>
 </launch>

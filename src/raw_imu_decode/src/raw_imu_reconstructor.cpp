@@ -26,24 +26,35 @@ public:
     }
 };
 
+struct CameraFrame {
+    double timeStamp{};
+    std::string filename;
+
+    friend std::ostream &operator<<(std::ostream &os, const CameraFrame &frame) {
+        os << "timeStamp: " << frame.timeStamp << " filename: " << frame.filename;
+        return os;
+    }
+};
+
 
 int main(int argc, char **argv) {
     ros::init(argc, argv, "raw_imu_reconstructor_node");
     LOG_PROCESS("load ros params...")
-    std::string rawImuFilename, srcAdisIMUFilename, dstAdisIMUFilename;
+    std::string rawImuFilename, dstAdisIMUFilename, imgTimestampFilename;
     ros::param::get("/raw_imu_reconstructor_node/raw_imu_filename", rawImuFilename);
-    ros::param::get("/raw_imu_reconstructor_node/src_imu_adis", srcAdisIMUFilename);
     ros::param::get("/raw_imu_reconstructor_node/dst_imu_adis", dstAdisIMUFilename);
+    ros::param::get("/raw_imu_reconstructor_node/image_timestamp", imgTimestampFilename);
     LOG_VAR(rawImuFilename)
-    LOG_VAR(srcAdisIMUFilename)
     LOG_VAR(dstAdisIMUFilename)
+    LOG_VAR(imgTimestampFilename)
+
     if (!std::filesystem::exists(rawImuFilename)) {
         LOG_ERROR("the raw imu file: ", rawImuFilename, " is not exists!")
         ros::shutdown();
         return 0;
     }
-    if (!std::filesystem::exists(srcAdisIMUFilename)) {
-        LOG_ERROR("the src imu adis file: ", srcAdisIMUFilename, " is not exists!")
+    if (!std::filesystem::exists(imgTimestampFilename)) {
+        LOG_ERROR("the image timestamp file: ", imgTimestampFilename, " is not exists!")
         ros::shutdown();
         return 0;
     }
@@ -52,13 +63,14 @@ int main(int argc, char **argv) {
             rawImuFilename, ' ');
     LOG_PLAINTEXT("raw imu data size: ", rawImuData.size(), ", time span from ", rawImuData.front().sow, " to ",
                   rawImuData.back().sow)
-    LOG_PROCESS("loading adis imu data...")
-    auto srcAdisIMUData = ns_csv::CSVReader::read<CSV_STRUCT(RawIMUData, sow, gx, gy, gz, ax, ay, az) >(
-            srcAdisIMUFilename, ' ');
-    LOG_PLAINTEXT("adis imu data size: ", srcAdisIMUData.size(), ", time span from ", srcAdisIMUData.front().sow,
-                  " to ", srcAdisIMUData.back().sow)
-    double startTimestamp = srcAdisIMUData.front().sow;
-    double endTimestamp = srcAdisIMUData.back().sow;
+    LOG_PROCESS("loading imu timestamp data...")
+    auto imgTimestamp = ns_csv::CSVReader::read<CSV_STRUCT(CameraFrame, timeStamp, filename) >(
+            imgTimestampFilename, ',');
+    LOG_PLAINTEXT("image timestamp data size: ", imgTimestamp.size(), ", time span from ",
+                  imgTimestamp.front().timeStamp, " to ", imgTimestamp.back().timeStamp)
+
+    double startTimestamp = imgTimestamp.front().timeStamp;
+    double endTimestamp = imgTimestamp.back().timeStamp;
     if (startTimestamp > rawImuData.back().sow || endTimestamp < rawImuData.front().sow) {
         LOG_ERROR("the source adis imu data time span is out of the raw imu data range!!!")
     }
@@ -83,9 +95,8 @@ int main(int argc, char **argv) {
 
     LOG_VAR(dstAdisIMUData.front())
     LOG_VAR(dstAdisIMUData.back())
-    LOG_VAR(dstAdisIMUData.size())
 
-    LOG_INFO("add ", dstAdisIMUData.size() - srcAdisIMUData.size(), " new imu frames.")
+    LOG_INFO("add ", dstAdisIMUData.size(), " imu frames.")
     LOG_PROCESS("finished")
     ns_csv::CSVWriter::write<CSV_STRUCT(RawIMUData, sow, gx, gy, gz, ax, ay, az) >(
             dstAdisIMUFilename, ' ', dstAdisIMUData
