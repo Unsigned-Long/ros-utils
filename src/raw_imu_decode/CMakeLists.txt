@@ -134,6 +134,7 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(raw_imu_decode src/raw_imu_decode.cpp)
+add_executable(raw_imu_reconstructor src/raw_imu_reconstructor.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -148,6 +149,11 @@ add_executable(raw_imu_decode src/raw_imu_decode.cpp)
 ## Specify libraries to link a library or executable target against
 target_link_libraries(
         raw_imu_decode
+        ${catkin_LIBRARIES}
+)
+
+target_link_libraries(
+        raw_imu_reconstructor
         ${catkin_LIBRARIES}
 )
 
