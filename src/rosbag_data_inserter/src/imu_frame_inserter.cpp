@@ -23,6 +23,9 @@ int main(int argc, char **argv) {
     ros::param::get("/imu_frame_inserter_node/imu_dst_topic", imuDstTopic);
     ros::param::get("/imu_frame_inserter_node/imu_dst_frame_id", imuDstFrameId);
 
+    int gpsWeek;
+    ros::param::get("/imu_frame_inserter_node/gps_week", gpsWeek);
+
     LOG_VAR(srcBagPath)
     LOG_VAR(dstBagPath)
     LOG_ENDL()
@@ -30,6 +33,7 @@ int main(int argc, char **argv) {
     LOG_ENDL()
     LOG_VAR(lidarSrcTopic, lidarDstTopic, lidarDstFrameId)
     LOG_VAR(imuDstTopic, imuDstFrameId)
+    LOG_VAR(gpsWeek)
 
     if (!std::filesystem::exists(srcBagPath)) {
         LOG_ERROR("the src srcBag path: '", srcBagPath, "' is not exists...")
@@ -50,7 +54,7 @@ int main(int argc, char **argv) {
         frame.gx *= DEG_2_RAD;
         frame.gy *= DEG_2_RAD;
         frame.gz *= DEG_2_RAD;
-        frame.timeStamp = ToUNIXT(2235, frame.timeStamp);
+        frame.timeStamp = ToUNIXT(gpsWeek, frame.timeStamp);
     }
     LOG_PLAINTEXT("first imu frame: ", imuFrames.front())
     LOG_PLAINTEXT("last imu frame: ", imuFrames.back())

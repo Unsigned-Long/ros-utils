@@ -25,6 +25,9 @@ int main(int argc, char **argv) {
     ros::param::get("/camera_frame_inserter_node/camera_dst_topic", cameraDstTopic);
     ros::param::get("/camera_frame_inserter_node/camera_dst_frame_id", cameraDstFrameId);
 
+    int gpsWeek;
+    ros::param::get("/camera_frame_inserter_node/gps_week", gpsWeek);
+
     LOG_VAR(srcBagPath)
     LOG_VAR(dstBagPath)
     LOG_ENDL()
@@ -33,6 +36,7 @@ int main(int argc, char **argv) {
     LOG_ENDL()
     LOG_VAR(lidarSrcTopic, lidarDstTopic, lidarDstFrameId)
     LOG_VAR(cameraDstTopic, cameraDstFrameId)
+    LOG_VAR(gpsWeek)
 
     if (!std::filesystem::exists(srcBagPath)) {
         LOG_ERROR("the src srcBag path: '", srcBagPath, "' is not exists...")
@@ -48,7 +52,7 @@ int main(int argc, char **argv) {
     }
     LOG_PROCESS("loading camera timestamp file...")
 
-    std::vector<CameraFrame> cameraFrames = LoadCameraTimeStampFile(imageTimeStampFilename);
+    std::vector<CameraFrame> cameraFrames = LoadCameraTimeStampFile(imageTimeStampFilename, gpsWeek);
     LOG_PLAINTEXT("camera frames count: ", cameraFrames.size())
     LOG_PLAINTEXT("camera first frame: ", cameraFrames.front())
     LOG_PLAINTEXT("camera last frame: ", cameraFrames.back())

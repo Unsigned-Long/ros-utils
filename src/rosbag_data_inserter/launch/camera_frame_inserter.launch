@@ -14,5 +14,7 @@
         <param name="camera_dst_topic" value="/camera_raw_frames" type="string"/>
         <param name="camera_dst_frame_id" value="camera" type="string"/>
 
+        <param name="gps_week" value="2236" type="int"/>
+
     </node>
 </launch>

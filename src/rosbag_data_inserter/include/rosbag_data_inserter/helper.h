@@ -111,7 +111,7 @@ std::vector<std::string> split(const std::string &str, char splitor, bool ignore
     return vec;
 }
 
-std::vector<CameraFrame> LoadCameraTimeStampFile(const std::string &filename) {
+std::vector<CameraFrame> LoadCameraTimeStampFile(const std::string &filename, int gpsWeek) {
     std::vector<CameraFrame> imageFrames;
     std::ifstream imageTimeStampFile(filename, std::ios::in);
     std::string strLine;
@@ -119,7 +119,7 @@ std::vector<CameraFrame> LoadCameraTimeStampFile(const std::string &filename) {
         try {
             auto items = split(strLine, ',');
             CameraFrame cameraFrame;
-            cameraFrame.timeStamp = ToUNIXT(2235, std::stod(items.at(0)));
+            cameraFrame.timeStamp = ToUNIXT(gpsWeek, std::stod(items.at(0)));
             cameraFrame.filename = items.at(1);
             imageFrames.push_back(cameraFrame);
         } catch (const std::exception &e) {

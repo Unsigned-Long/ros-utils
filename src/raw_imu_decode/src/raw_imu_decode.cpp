@@ -97,8 +97,9 @@ int main(int argc, char **argv) {
                           rawImu.back().gpsw, ':', rawImu.back().sow)
             data.push_back(rawImu);
         }
+        // TODO: check this data
         std::sort(data.begin(), data.end(), [](const std::vector<RawIMUData> &v1, const std::vector<RawIMUData> &v2) {
-            return v1.back().TotalSeconds() < v2.front().TotalSeconds();
+            return v1.front().TotalSeconds() < v2.front().TotalSeconds();
         });
         LOG_PROCESS("combine all data...")
         for (const auto &item: data) {
@@ -112,8 +113,20 @@ int main(int argc, char **argv) {
 
     for (auto &frame: totalData) { frame.AdjustData(); }
 
+    int i = 0, j = 1;
+    for (; j < totalData.size(); ++i, ++j) {
+        if (totalData.at(i).TotalSeconds() >= totalData.at(j).TotalSeconds()) {
+            LOG_ERROR("data order is wrong!!!")
+            LOG_VAR(i, j)
+            LOG_VAR(totalData.at(i))
+            LOG_VAR(totalData.at(j))
+            ros::shutdown();
+            return 0;
+        }
+    }
+
     LOG_PROCESS("write to file: ", imuFilename, "...")
-    ns_csv::CSVWriter::write<CSV_STRUCT(RawIMUData, sow, gx, gy, gz, ax, ay, az) >(
+    ns_csv::CSVWriter::write<CSV_STRUCT(RawIMUData, gpsw, sow, gx, gy, gz, ax, ay, az) >(
             imuFilename, ' ', totalData
     );
     LOG_PROCESS("finished.")
