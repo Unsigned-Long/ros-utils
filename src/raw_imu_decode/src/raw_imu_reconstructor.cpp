@@ -93,7 +93,7 @@ int main(int argc, char **argv) {
     double startTimestamp = imgTimestamp.front().timeStamp;
     double endTimestamp = imgTimestamp.back().timeStamp;
     if (startTimestamp > rawImuData.back().TotalSeconds() || endTimestamp < rawImuData.front().TotalSeconds()) {
-        LOG_ERROR("the source adis imu data time span is out of the raw imu data range!!!")
+        LOG_ERROR("the source adis imu data time span is out of the raw imu data range!!! Please the gps week setting!!!")
         ros::shutdown();
         return 0;
     }
