@@ -49,11 +49,11 @@ struct IMUFrame {
     }
 };
 
-struct CameraFrame {
+struct Frame {
     double timeStamp{};
     std::string filename;
 
-    friend std::ostream &operator<<(std::ostream &os, const CameraFrame &frame) {
+    friend std::ostream &operator<<(std::ostream &os, const Frame &frame) {
         os << "timeStamp: " << frame.timeStamp << " filename: " << frame.filename;
         return os;
     }
@@ -111,14 +111,14 @@ std::vector<std::string> split(const std::string &str, char splitor, bool ignore
     return vec;
 }
 
-std::vector<CameraFrame> LoadCameraTimeStampFile(const std::string &filename, int gpsWeek) {
-    std::vector<CameraFrame> imageFrames;
+std::vector<Frame> LoadCameraTimeStampFile(const std::string &filename, int gpsWeek) {
+    std::vector<Frame> imageFrames;
     std::ifstream imageTimeStampFile(filename, std::ios::in);
     std::string strLine;
     while (std::getline(imageTimeStampFile, strLine)) {
         try {
             auto items = split(strLine, ',');
-            CameraFrame cameraFrame;
+            Frame cameraFrame;
             cameraFrame.timeStamp = ToUNIXT(gpsWeek, std::stod(items.at(0)));
             cameraFrame.filename = items.at(1);
             imageFrames.push_back(cameraFrame);

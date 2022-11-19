@@ -52,7 +52,7 @@ int main(int argc, char **argv) {
     }
     LOG_PROCESS("loading camera timestamp file...")
 
-    std::vector<CameraFrame> cameraFrames = LoadCameraTimeStampFile(imageTimeStampFilename, gpsWeek);
+    std::vector<Frame> cameraFrames = LoadCameraTimeStampFile(imageTimeStampFilename, gpsWeek);
     LOG_PLAINTEXT("camera frames count: ", cameraFrames.size())
     LOG_PLAINTEXT("camera first frame: ", cameraFrames.front())
     LOG_PLAINTEXT("camera last frame: ", cameraFrames.back())

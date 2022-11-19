@@ -3,3 +3,4 @@
 /devel
 /src/image_republisher/bag/
 /cmake-build-debug/
+/src/thirdparty/slam-scene-viewer-build/

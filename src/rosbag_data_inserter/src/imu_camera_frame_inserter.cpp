@@ -80,7 +80,7 @@ int main(int argc, char **argv) {
         LOG_PLAINTEXT("first imu frame: ", imuFrames.front())
         LOG_PLAINTEXT("last imu frame: ", imuFrames.back())
     }
-    std::vector<CameraFrame> cameraFrames;
+    std::vector<Frame> cameraFrames;
     {
         LOG_PROCESS("loading camera timestamp file...")
 

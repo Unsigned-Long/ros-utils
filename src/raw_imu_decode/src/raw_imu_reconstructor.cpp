@@ -31,11 +31,11 @@ public:
     }
 };
 
-struct CameraFrame {
+struct Frame {
     double timeStamp{};
     std::string filename;
 
-    friend std::ostream &operator<<(std::ostream &os, const CameraFrame &frame) {
+    friend std::ostream &operator<<(std::ostream &os, const Frame &frame) {
         os << "timeStamp: " << frame.timeStamp << " filename: " << frame.filename;
         return os;
     }
@@ -79,7 +79,7 @@ int main(int argc, char **argv) {
 
     // ------------------------
     LOG_PROCESS("loading camera timestamp data...")
-    auto imgTimestamp = ns_csv::CSVReader::read<CSV_STRUCT(CameraFrame, timeStamp, filename) >(
+    auto imgTimestamp = ns_csv::CSVReader::read<CSV_STRUCT(Frame, timeStamp, filename) >(
             imgTimestampFilename, ','
     );
     for (auto &item: imgTimestamp) {

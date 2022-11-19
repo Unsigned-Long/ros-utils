@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<launch>
+    <node pkg="sim_vision" type="sim_vision" name="sim_vision_node" output="screen">
+        <param name="bag_path" value="/home/csl/dataset/LIC-Calib/sim/simu_bag.bag"
+               type="string"/>
+        <param name="sfm_data_output_path"
+               value="/home/csl/ros_ws/LIC-Calib/src/openmvg_sfm/output/data_sim/sfm_data.json"
+               type="string"/>
+        <param name="timestamp_output_path"
+               value="/home/csl/ros_ws/LIC-Calib/src/lic_calib/output/data_sim/camera/frames.txt"
+               type="string"/>
+        <param name="feature_pcd_path"
+               value="/home/csl/CppWorks/artwork/slam-tricks/st16-pcl-viewer/data/feature/features.pcd"
+               type="string"/>
+        <param name="odom_topic" value="/odom_lidar" type="string"/>
+
+    </node>
+</launch>
