@@ -205,6 +205,7 @@ int main(int argc, char **argv) {
 
     LOG_VAR(bagPath)
     LOG_VAR(sfmDataOPath)
+    LOG_VAR(timestampOPath)
     LOG_VAR(featurePath)
     LOG_VAR(odomTopic)
 
@@ -218,11 +219,38 @@ int main(int argc, char **argv) {
         ros::shutdown();
         return 0;
     }
+    const double RAD_TO_DEG = 180.0 / M_PI;
+    const double DEG_TO_RAD = M_PI / 180.0;
 
-    Eigen::AngleAxisd a1(10.0, Eigen::Vector3d(0, 0, 1));
-    Eigen::AngleAxisd a2(10.0, Eigen::Vector3d(0, 1, 0));
-    Eigen::AngleAxisd a3(90.0, Eigen::Vector3d(1, 0, 0));
-    const Sophus::SE3d CtoL((a1 * a2 * a3).toRotationMatrix(), Eigen::Vector3d(0.1, 0.2, 0.3));
+    Sophus::SE3d CtoL, LtoI, CtoI;
+    {
+        Eigen::AngleAxisd a1(10.0, Eigen::Vector3d(0, 0, 1));
+        Eigen::AngleAxisd a2(10.0, Eigen::Vector3d(0, 1, 0));
+        Eigen::AngleAxisd a3(90.0, Eigen::Vector3d(1, 0, 0));
+        CtoL = Sophus::SE3d((a1 * a2 * a3).toRotationMatrix(), Eigen::Vector3d(0.0, 0.2, 0.1));
+        LOG_INFO("Camera To LiDAR:")
+        LOG_INFO("Quaternion: ", CtoL.unit_quaternion().coeffs().transpose())
+        LOG_INFO("Transpose: ", CtoL.translation().transpose())
+        auto angles = CtoL.so3().matrix().eulerAngles(0, 1, 2) * RAD_TO_DEG;
+        LOG_INFO("euler angles: ", angles.transpose())
+    }
+    {
+        Eigen::AngleAxisd a1(5.0 * DEG_TO_RAD, Eigen::Vector3d(0, 0, 1));
+        Eigen::AngleAxisd a2(2.0 * DEG_TO_RAD, Eigen::Vector3d(0, 1, 0));
+        Eigen::AngleAxisd a3(1.0 * DEG_TO_RAD, Eigen::Vector3d(1, 0, 0));
+        LtoI = Sophus::SE3d((a3 * a2 * a1).toRotationMatrix(), Eigen::Vector3d(0.3, 0.15, 0.05));
+        LOG_INFO("LiDAR To IMU:")
+        LOG_INFO("Quaternion: ", LtoI.unit_quaternion().coeffs().transpose())
+        LOG_INFO("Transpose: ", LtoI.translation().transpose())
+        auto angles = LtoI.so3().matrix().eulerAngles(0, 1, 2) * RAD_TO_DEG;
+        LOG_INFO("euler angles: ", angles.transpose())
+    }
+    CtoI = LtoI * CtoL;
+    LOG_INFO("Camera To IMU:")
+    LOG_INFO("Quaternion: ", CtoI.unit_quaternion().coeffs().transpose())
+    LOG_INFO("Transpose: ", CtoI.translation().transpose())
+    auto angles = CtoI.so3().matrix().eulerAngles(0, 1, 2) * RAD_TO_DEG;
+    LOG_INFO("euler angles: ", angles.transpose())
 
     // frames
     std::vector<Frame> frames = GenerateBiasFrames(CtoL, bagPath, odomTopic);
