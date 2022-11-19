@@ -13,6 +13,7 @@ find_package(
         rosbag
         nav_msgs
         pcl_conversions
+        cv_bridge
 )
 
 ## System dependencies are found with CMake's conventions
@@ -149,6 +150,7 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(sim_vision src/sim_vision.cpp)
+add_executable(sim_img src/sim_img.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -167,6 +169,11 @@ target_link_libraries(
         Sophus::Sophus
         SlamSceneViewer::SlamSceneViewer
         OpenMVG::openMVG_sfm
+)
+
+target_link_libraries(
+        sim_img
+        ${catkin_LIBRARIES}
 )
 
 #############
