@@ -3,7 +3,7 @@
     <node pkg="sim_vision" type="sim_img" name="sim_img_node" output="screen">
         <param name="bag_path" value="/home/csl/dataset/LIC-Calib/sim/simu_bag_with_img.bag"
                type="string"/>
-        <param name="img_topic" value="img_sim" type="string"/>
+        <param name="img_topic" value="/img_sim" type="string"/>
         <param name="odom_topic" value="/odom_lidar" type="string"/>
     </node>
 </launch>

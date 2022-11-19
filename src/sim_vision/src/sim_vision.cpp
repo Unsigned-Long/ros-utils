@@ -133,15 +133,21 @@ OrganizeSfMData(const std::map<std::uint32_t, Frame> &views,
     openMVG::sfm::SfM_Data sfMData;
     sfMData.s_root_path = "undefined";
 
-    std::shared_ptr <openMVG::cameras::IntrinsicBase> intri =
+    std::shared_ptr<openMVG::cameras::IntrinsicBase> intri =
             std::make_shared<openMVG::cameras::Pinhole_Intrinsic_Brown_T2>(
                     width, height, f, width / 2.0, height / 2.0
             );
     sfMData.intrinsics.insert(std::make_pair(0, intri));
-
+    auto digNum = std::to_string(views.size()).size();
     for (const auto &[viewId, view]: views) {
-        std::shared_ptr <openMVG::sfm::View> sfmView = std::make_shared<openMVG::sfm::View>(
-                std::to_string(viewId) + ".png", viewId, 0, viewId, width, height
+        std::string curImageName;
+        std::stringstream stream2;
+        stream2 << std::setfill('0') << std::setw(static_cast<int>(digNum)) << viewId;
+        stream2 >> curImageName;
+        curImageName = "/" + curImageName + ".png";
+
+        std::shared_ptr<openMVG::sfm::View> sfmView = std::make_shared<openMVG::sfm::View>(
+                curImageName, viewId, 0, viewId, width, height
         );
         sfMData.views.insert(std::make_pair(viewId, sfmView));
         openMVG::geometry::Pose3 pose(view.CurToW.so3().inverse().matrix(), view.CurToW.translation());
