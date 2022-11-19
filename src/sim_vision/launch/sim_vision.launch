@@ -9,9 +9,6 @@
         <param name="timestamp_output_path"
                value="/home/csl/ros_ws/LIC-Calib/src/lic_calib/output/data_sim/camera/frames.txt"
                type="string"/>
-        <param name="feature_pcd_path"
-               value="/home/csl/CppWorks/artwork/slam-tricks/st16-pcl-viewer/data/feature/features.pcd"
-               type="string"/>
         <param name="odom_topic" value="/odom_lidar" type="string"/>
 
     </node>

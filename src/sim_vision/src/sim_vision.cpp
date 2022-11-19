@@ -195,18 +195,16 @@ int main(int argc, char **argv) {
     ros::init(argc, argv, "sim_vision_node");
     LOG_PROCESS("loading ros params...")
 
-    std::string bagPath, sfmDataOPath, odomTopic, featurePath, timestampOPath;
+    std::string bagPath, sfmDataOPath, odomTopic, timestampOPath;
 
     ros::param::get("/sim_vision_node/bag_path", bagPath);
     ros::param::get("/sim_vision_node/sfm_data_output_path", sfmDataOPath);
     ros::param::get("/sim_vision_node/timestamp_output_path", timestampOPath);
-    ros::param::get("/sim_vision_node/feature_pcd_path", featurePath);
     ros::param::get("/sim_vision_node/odom_topic", odomTopic);
 
     LOG_VAR(bagPath)
     LOG_VAR(sfmDataOPath)
     LOG_VAR(timestampOPath)
-    LOG_VAR(featurePath)
     LOG_VAR(odomTopic)
 
     if (!std::filesystem::exists(bagPath)) {
@@ -214,11 +212,7 @@ int main(int argc, char **argv) {
         ros::shutdown();
         return 0;
     }
-    if (!std::filesystem::exists(featurePath)) {
-        LOG_ERROR("the feature pcd path '", featurePath, "' is not exists...")
-        ros::shutdown();
-        return 0;
-    }
+
     const double RAD_TO_DEG = 180.0 / M_PI;
     const double DEG_TO_RAD = M_PI / 180.0;
 
@@ -227,7 +221,7 @@ int main(int argc, char **argv) {
         Eigen::AngleAxisd a1(10.0, Eigen::Vector3d(0, 0, 1));
         Eigen::AngleAxisd a2(10.0, Eigen::Vector3d(0, 1, 0));
         Eigen::AngleAxisd a3(90.0, Eigen::Vector3d(1, 0, 0));
-        CtoL = Sophus::SE3d((a1 * a2 * a3).toRotationMatrix(), Eigen::Vector3d(0.0, 0.2, 0.1));
+        CtoL = Sophus::SE3d((a1 * a2 * a3).toRotationMatrix(), Eigen::Vector3d(0.3, 0.2, 0.1));
         LOG_INFO("Camera To LiDAR:")
         LOG_INFO("Quaternion: ", CtoL.unit_quaternion().coeffs().transpose())
         LOG_INFO("Transpose: ", CtoL.translation().transpose())
@@ -257,7 +251,15 @@ int main(int argc, char **argv) {
     LOG_PROCESS("frame size: ", frames.size())
     // features
     pcl::PointCloud<pcl::PointXYZ> feature;
-    pcl::io::loadPCDFile(featurePath, feature);
+    std::default_random_engine engine(std::chrono::system_clock::now().time_since_epoch().count());
+    std::normal_distribution<float> ux(-3.0f, 2.5f), uy(0.0f, 2.5f), uz(0.0f, 2.5f);
+    for (int i = 0; i < 1000; ++i) {
+        pcl::PointXYZ p;
+        p.x = ux(engine);
+        p.y = uy(engine);
+        p.z = uz(engine);
+        feature.points.push_back(p);
+    }
     LOG_PROCESS("feature size: ", feature.size())
 
     int width = 400, height = 400;
