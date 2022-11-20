@@ -218,9 +218,9 @@ int main(int argc, char **argv) {
 
     Sophus::SE3d CtoL, LtoI, CtoI;
     {
-        Eigen::AngleAxisd a1(10.0, Eigen::Vector3d(0, 0, 1));
-        Eigen::AngleAxisd a2(10.0, Eigen::Vector3d(0, 1, 0));
-        Eigen::AngleAxisd a3(90.0, Eigen::Vector3d(1, 0, 0));
+        Eigen::AngleAxisd a1(10.0 * DEG_TO_RAD, Eigen::Vector3d(0, 0, 1));
+        Eigen::AngleAxisd a2(20.0 * DEG_TO_RAD, Eigen::Vector3d(0, 1, 0));
+        Eigen::AngleAxisd a3(30.0 * DEG_TO_RAD, Eigen::Vector3d(1, 0, 0));
         CtoL = Sophus::SE3d((a1 * a2 * a3).toRotationMatrix(), Eigen::Vector3d(0.3, 0.2, 0.1));
         LOG_INFO("Camera To LiDAR:")
         LOG_INFO("Quaternion: ", CtoL.unit_quaternion().coeffs().transpose())
