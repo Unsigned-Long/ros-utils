@@ -253,7 +253,7 @@ int main(int argc, char **argv) {
     pcl::PointCloud<pcl::PointXYZ> feature;
     std::default_random_engine engine(std::chrono::system_clock::now().time_since_epoch().count());
     std::normal_distribution<float> ux(-3.0f, 2.5f), uy(0.0f, 2.5f), uz(0.0f, 2.5f);
-    for (int i = 0; i < 1000; ++i) {
+    for (int i = 0; i < 2000; ++i) {
         pcl::PointXYZ p;
         p.x = ux(engine);
         p.y = uy(engine);
