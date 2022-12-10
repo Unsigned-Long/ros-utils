@@ -31,9 +31,9 @@ int main(int argc, char **argv) {
         return 0;
     }
 
-    std::vector<std::pair<ros::Time, std::string>> timestampVec;
+    std::vector <std::pair<ros::Time, std::string>> timestampVec;
 
-    std::shared_ptr<rosbag::Bag> readBag(new rosbag::Bag()), writeBag(new rosbag::Bag());
+    std::shared_ptr <rosbag::Bag> readBag(new rosbag::Bag()), writeBag(new rosbag::Bag());
     readBag->open(bagPath, rosbag::BagMode::Read);
     rosbag::View bagView;
     bagView.addQuery(*readBag);
