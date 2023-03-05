@@ -4,7 +4,7 @@
 
     <arg name="bag_prefix" value="cam_calib"/>
 
-    <arg name="bag_dur" value="40.0"/>
+    <arg name="bag_dur" value="15.0"/>
 
     <node pkg="rosbag" type="record" name="record"
           args="$(arg image_topic) -o $(find image_republisher)/bag/$(arg bag_prefix) --duration=$(arg bag_dur)"/>
