@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <launch>
     <node pkg="raw_imu_decode" type="raw_imu_decode" name="raw_imu_decode_node" output="screen">
-        <param name="raw_imu_dir" value="/home/csl/dataset/LIC-Calib/real_world/raw_imu" type="string"/>
-        <param name="output_filename" value="/home/csl/dataset/LIC-Calib/real_world/raw_imu/raw_data.imu" type="string"/>
+        <param name="raw_imu_dir" value="/home/csl/dataset/HCIL-Calib/raw_imu" type="string"/>
+        <param name="output_filename" value="/home/csl/dataset/HCIL-Calib/raw_imu/raw_data.imu" type="string"/>
     </node>
 </launch>

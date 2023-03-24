@@ -140,6 +140,7 @@ include_directories(
 add_executable(imu_frame_inserter src/imu_frame_inserter.cpp)
 add_executable(camera_frame_inserter src/camera_frame_inserter.cpp)
 add_executable(imu_camera_frame_inserter src/imu_camera_frame_inserter.cpp)
+add_executable(imu_gs_rs_camera_frame_inserter src/imu_gs_rs_camera_frame_inserter.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -164,6 +165,11 @@ target_link_libraries(
 
 target_link_libraries(
         imu_camera_frame_inserter
+        ${catkin_LIBRARIES}
+)
+
+target_link_libraries(
+        imu_gs_rs_camera_frame_inserter
         ${catkin_LIBRARIES}
 )
 
