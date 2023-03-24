@@ -15,28 +15,28 @@ int main(int argc, char **argv) {
     std::string imuDstTopic, imuDstFrameId;
     std::string gsCameraDstTopic, gsCameraDstFrameId, rsCameraDstTopic, rsCameraDstFrameId;
 
-    ros::param::get("/imu_camera_frame_inserter_node/src_bag_path", srcBagPath);
-    ros::param::get("/imu_camera_frame_inserter_node/dst_bag_path", dstBagPath);
-    ros::param::get("/imu_camera_frame_inserter_node/imu_filename", imuFilename);
-    ros::param::get("/imu_camera_frame_inserter_node/gs_image_timestamp_filename", gsImageTimeStampFilename);
-    ros::param::get("/imu_camera_frame_inserter_node/gs_image_dir", gsImageDir);
-    ros::param::get("/imu_camera_frame_inserter_node/rs_image_timestamp_filename", rsImageTimeStampFilename);
-    ros::param::get("/imu_camera_frame_inserter_node/rs_image_dir", rsImageDir);
+    ros::param::get("/imu_gs_rs_camera_frame_inserter_node/src_bag_path", srcBagPath);
+    ros::param::get("/imu_gs_rs_camera_frame_inserter_node/dst_bag_path", dstBagPath);
+    ros::param::get("/imu_gs_rs_camera_frame_inserter_node/imu_filename", imuFilename);
+    ros::param::get("/imu_gs_rs_camera_frame_inserter_node/gs_image_timestamp_filename", gsImageTimeStampFilename);
+    ros::param::get("/imu_gs_rs_camera_frame_inserter_node/gs_image_dir", gsImageDir);
+    ros::param::get("/imu_gs_rs_camera_frame_inserter_node/rs_image_timestamp_filename", rsImageTimeStampFilename);
+    ros::param::get("/imu_gs_rs_camera_frame_inserter_node/rs_image_dir", rsImageDir);
 
-    ros::param::get("/imu_camera_frame_inserter_node/lidar_src_topic", lidarSrcTopic);
-    ros::param::get("/imu_camera_frame_inserter_node/lidar_dst_topic", lidarDstTopic);
-    ros::param::get("/imu_camera_frame_inserter_node/lidar_dst_frame_id", lidarDstFrameId);
+    ros::param::get("/imu_gs_rs_camera_frame_inserter_node/lidar_src_topic", lidarSrcTopic);
+    ros::param::get("/imu_gs_rs_camera_frame_inserter_node/lidar_dst_topic", lidarDstTopic);
+    ros::param::get("/imu_gs_rs_camera_frame_inserter_node/lidar_dst_frame_id", lidarDstFrameId);
 
-    ros::param::get("/imu_camera_frame_inserter_node/imu_dst_topic", imuDstTopic);
-    ros::param::get("/imu_camera_frame_inserter_node/imu_dst_frame_id", imuDstFrameId);
+    ros::param::get("/imu_gs_rs_camera_frame_inserter_node/imu_dst_topic", imuDstTopic);
+    ros::param::get("/imu_gs_rs_camera_frame_inserter_node/imu_dst_frame_id", imuDstFrameId);
 
-    ros::param::get("/imu_camera_frame_inserter_node/gs_camera_dst_topic", gsCameraDstTopic);
-    ros::param::get("/imu_camera_frame_inserter_node/gs_camera_dst_frame_id", gsCameraDstFrameId);
-    ros::param::get("/imu_camera_frame_inserter_node/rs_camera_dst_topic", rsCameraDstTopic);
-    ros::param::get("/imu_camera_frame_inserter_node/rs_camera_dst_frame_id", rsCameraDstFrameId);
+    ros::param::get("/imu_gs_rs_camera_frame_inserter_node/gs_camera_dst_topic", gsCameraDstTopic);
+    ros::param::get("/imu_gs_rs_camera_frame_inserter_node/gs_camera_dst_frame_id", gsCameraDstFrameId);
+    ros::param::get("/imu_gs_rs_camera_frame_inserter_node/rs_camera_dst_topic", rsCameraDstTopic);
+    ros::param::get("/imu_gs_rs_camera_frame_inserter_node/rs_camera_dst_frame_id", rsCameraDstFrameId);
 
     int gpsWeek;
-    ros::param::get("/imu_camera_frame_inserter_node/gps_week", gpsWeek);
+    ros::param::get("/imu_gs_rs_camera_frame_inserter_node/gps_week", gpsWeek);
 
     LOG_VAR(srcBagPath)
     LOG_VAR(dstBagPath)
