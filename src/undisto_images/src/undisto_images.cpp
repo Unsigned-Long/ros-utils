@@ -64,8 +64,8 @@ int main(int argc, char **argv) {
     }
     if (!std::filesystem::exists(image_dst_dir)) {
         std::filesystem::create_directories(image_dst_dir);
-        ros::shutdown();
     }
+
     auto intrinsicsElems = split(intrinsics, ',');
     auto distortionCoeffs = split(distortion_coeffs, ',');
     double fx = std::stod(intrinsicsElems.at(0)), fy = std::stod(intrinsicsElems.at(1));

@@ -12,7 +12,4 @@
                value="-0.49623668950096983,0.24515724208273623,0.0006868453647021348,-0.0007321082372521248"
                type="string"/>
     </node>
-
-    <include file="$(find image_republisher)/launch/rosbag-record.launch"/>
-
 </launch>

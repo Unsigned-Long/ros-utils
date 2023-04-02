@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<launch>
+
+    <!--    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find image_republisher)/config/config.rviz"/>-->
+
+    <node pkg="images_thinning" type="images_thinning_prog" name="images_thinning_node" output="screen">
+        <param name="image_src_dir" value="/home/csl/dataset/RS/rs2" type="string"/>
+        <param name="image_dst_dir" value="/home/csl/dataset/RS/rs2-thinning" type="string"/>
+        <param name="thinning_step" value="2" type="int"/>
+    </node>
+
+</launch>
