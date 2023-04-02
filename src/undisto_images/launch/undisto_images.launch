@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<launch>
+
+    <!--    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find image_republisher)/config/config.rviz"/>-->
+
+    <node pkg="undisto_images" type="undisto_images_prog" name="undisto_images_node" output="screen">
+        <param name="image_src_dir" value="/home/csl/dataset/RS/rs3" type="string"/>
+        <param name="image_dst_dir" value="/home/csl/dataset/RS/rs3-undisto" type="string"/>
+        <param name="intrinsics" value="1675.3493367756955,1673.2632227704003,1053.6552950966766,778.9666460825849"
+               type="string"/>
+        <param name="distortion_coeffs"
+               value="-0.49623668950096983,0.24515724208273623,0.0006868453647021348,-0.0007321082372521248"
+               type="string"/>
+    </node>
+
+    <include file="$(find image_republisher)/launch/rosbag-record.launch"/>
+
+</launch>

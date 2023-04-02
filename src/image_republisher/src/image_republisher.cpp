@@ -16,8 +16,8 @@
  * \param directory the directory
  * \return the filenames in the directory
  */
-std::vector <std::string> filesInDir(const std::string &directory) {
-    std::vector <std::string> files;
+std::vector<std::string> filesInDir(const std::string &directory) {
+    std::vector<std::string> files;
     for (const auto &elem: std::filesystem::directory_iterator(directory))
         if (elem.status().type() != std::filesystem::file_type::directory)
             files.emplace_back(std::filesystem::canonical(elem.path()).c_str());
@@ -55,11 +55,11 @@ int main(int argc, char **argv) {
         LOG_PLAINTEXT("publish the image: ", imageNames.at(idx))
         // organize the cv image
         cv_bridge::CvImage cvImage;
-        cvImage.image = cv::imread(imageNames.at(idx), cv::ImreadModes::IMREAD_UNCHANGED);
+        cvImage.image = cv::imread(imageNames.at(idx), cv::ImreadModes::IMREAD_GRAYSCALE);
         cvImage.header.stamp = ros::Time::now();
         cvImage.encoding = sensor_msgs::image_encodings::MONO8;
-        // cv::imshow("win", cvImage.image);
-        // cv::waitKey(1);
+        cv::imshow("win", cvImage.image);
+        cv::waitKey(1);
 
         // publish
         sensor_msgs::Image sensorImage;
