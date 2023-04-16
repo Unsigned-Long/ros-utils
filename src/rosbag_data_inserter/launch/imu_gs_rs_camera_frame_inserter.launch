@@ -3,22 +3,22 @@
     <!--  param to change: 'src_bag_path', 'dst_bag_path', 'imu_filename', 'image_timestamp_filename', 'image_dir'  -->
     <node pkg="rosbag_data_inserter" type="imu_gs_rs_camera_frame_inserter" name="imu_gs_rs_camera_frame_inserter_node"
           output="screen">
-        <param name="src_bag_path" value="/home/csl/dataset/HCIL-Calib/data_202332320276/lidar/lidar.bag"
+        <param name="src_bag_path" value="/home/csl/dataset/data_416/data_2023416143655/lidar/lidar.bag"
                type="string"/>
-        <param name="dst_bag_path" value="/home/csl/dataset/HCIL-Calib/data_202332320276/lidar_imu_camera.bag"
+        <param name="dst_bag_path" value="/home/csl/dataset/data_416/data_2023416143655/lidar_imu_camera.bag"
                type="string"/>
 
-        <param name="imu_filename" value="/home/csl/dataset/HCIL-Calib/data_202332320276/imu_adis_new.txt"
+        <param name="imu_filename" value="/home/csl/dataset/data_416/data_2023416143655/imu_adis_new.txt"
                type="string"/>
 
         <param name="gs_image_timestamp_filename"
-               value="/home/csl/dataset/HCIL-Calib/data_202332320276/stamp_cam_gs_new.txt" type="string"/>
-        <param name="gs_image_dir" value="/home/csl/dataset/HCIL-Calib/data_202332320276/image_rearrange/cam_gs"
+               value="/home/csl/dataset/data_416/data_2023416143655/stamp_cam0_new.txt" type="string"/>
+        <param name="gs_image_dir" value="/home/csl/dataset/data_416/data_2023416143655/image_rearrange/cam0"
                type="string"/>
 
         <param name="rs_image_timestamp_filename"
-               value="/home/csl/dataset/HCIL-Calib/data_202332320276/stamp_cam_rs_new.txt" type="string"/>
-        <param name="rs_image_dir" value="/home/csl/dataset/HCIL-Calib/data_202332320276/image_rearrange/cam_rs"
+               value="/home/csl/dataset/data_416/data_2023416143655/stamp_cam1_new.txt" type="string"/>
+        <param name="rs_image_dir" value="/home/csl/dataset/data_416/data_2023416143655/image_rearrange/cam1"
                type="string"/>
 
         <param name="lidar_src_topic" value="/velodyne_points" type="string"/>
@@ -28,13 +28,13 @@
         <param name="imu_dst_topic" value="/imu_raw_frames" type="string"/>
         <param name="imu_dst_frame_id" value="imu" type="string"/>
 
-        <param name="gs_camera_dst_topic" value="/gs_camera_raw_frames" type="string"/>
-        <param name="gs_camera_dst_frame_id" value="gs_camera" type="string"/>
+        <param name="gs_camera_dst_topic" value="/cam0_raw_frames" type="string"/>
+        <param name="gs_camera_dst_frame_id" value="cam0" type="string"/>
 
-        <param name="rs_camera_dst_topic" value="/rs_camera_raw_frames" type="string"/>
-        <param name="rs_camera_dst_frame_id" value="rs_camera" type="string"/>
+        <param name="rs_camera_dst_topic" value="/cam1_raw_frames" type="string"/>
+        <param name="rs_camera_dst_frame_id" value="cam1" type="string"/>
 
-        <param name="gps_week" value="2254" type="int"/>
+        <param name="gps_week" value="2258" type="int"/>
 
     </node>
 </launch>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <launch>
     <node pkg="raw_imu_decode" type="raw_imu_reconstructor" name="raw_imu_reconstructor_node" output="screen">
-        <param name="raw_imu_filename" value="/home/csl/dataset/HCIL-Calib/raw_imu/raw_data.imu" type="string"/>
+        <param name="raw_imu_filename" value="/home/csl/dataset/data_416/raw_imu/raw_data.imu" type="string"/>
         <param name="dst_imu_adis"
-               value="/home/csl/dataset/HCIL-Calib/data_2023323204945/imu_adis_new.txt" type="string"/>
+               value="/home/csl/dataset/data_416/data_2023416143655/imu_adis_new.txt" type="string"/>
         <param name="image_timestamp"
-               value="/home/csl/dataset/HCIL-Calib/data_2023323204945/stamp_cam_gs_new.txt"
+               value="/home/csl/dataset/data_416/data_2023416143655/stamp_cam0_new.txt"
                type="string"/>
-        <param name="gps_week" value="2254" type="int"/>
+        <param name="gps_week" value="2258" type="int"/>
     </node>
 </launch>
