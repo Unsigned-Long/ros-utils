@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <launch>
     <node pkg="raw_imu_decode" type="raw_imu_decode" name="raw_imu_decode_node" output="screen">
-        <param name="raw_imu_dir" value="/home/csl/dataset/data_416/raw_imu" type="string"/>
-        <param name="output_filename" value="/home/csl/dataset/data_416/raw_imu/raw_data.imu" type="string"/>
+        <param name="raw_imu_dir" value="/home/csl/dataset/data_515/imu1" type="string"/>
+        <param name="output_filename" value="/home/csl/dataset/data_515/imu1/raw_data.imu" type="string"/>
+        <!-- 400HZ -->
+        <!--        <param name="frame_factor" value="500" type="double"/>-->
+        <!-- 100HZ -->
+        <param name="frame_factor" value="100" type="double"/>
     </node>
 </launch>

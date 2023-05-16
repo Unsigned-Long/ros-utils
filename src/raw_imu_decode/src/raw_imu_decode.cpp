@@ -43,17 +43,17 @@ public:
         return sow + gpsw * 604800;
     }
 
-    void AdjustData() {
+    void AdjustData(double frameFactor) {
         static const double UNICORE_ACC_SCALE = 400.0 / std::pow(2, 31);
         static const double UNICORE_GYRO_SCALE = 2160.0 / pow(2, 31);
 
-        ax *= -UNICORE_ACC_SCALE / 0.002;
-        ay *= UNICORE_ACC_SCALE / 0.002;
-        az *= UNICORE_ACC_SCALE / 0.002;
+        ax *= -UNICORE_ACC_SCALE * frameFactor;
+        ay *= UNICORE_ACC_SCALE * frameFactor;
+        az *= UNICORE_ACC_SCALE * frameFactor;
 
-        gx *= -UNICORE_GYRO_SCALE / 0.002;
-        gy *= UNICORE_GYRO_SCALE / 0.002;
-        gz *= UNICORE_GYRO_SCALE / 0.002;
+        gx *= -UNICORE_GYRO_SCALE * frameFactor;
+        gy *= UNICORE_GYRO_SCALE * frameFactor;
+        gz *= UNICORE_GYRO_SCALE * frameFactor;
     }
 
     friend std::ostream &operator<<(std::ostream &os, const RawIMUData &data) {
@@ -69,10 +69,13 @@ int main(int argc, char **argv) {
     ros::init(argc, argv, "raw_imu_decode_node");
     LOG_PROCESS("load ros params...")
     std::string rawIMUDir, imuFilename;
+    double frameFactor;
     ros::param::get("/raw_imu_decode_node/raw_imu_dir", rawIMUDir);
     ros::param::get("/raw_imu_decode_node/output_filename", imuFilename);
+    ros::param::get("/raw_imu_decode_node/frame_factor", frameFactor);
     LOG_VAR(rawIMUDir)
     LOG_VAR(imuFilename)
+    LOG_VAR(frameFactor)
 
     LOG_PROCESS("find raw imu files...")
     auto files = filesInDir(rawIMUDir);
@@ -111,7 +114,7 @@ int main(int argc, char **argv) {
         LOG_PLAINTEXT("time span from ", totalData.front().TotalSeconds(), " to ", totalData.front().TotalSeconds())
     }
 
-    for (auto &frame: totalData) { frame.AdjustData(); }
+    for (auto &frame: totalData) { frame.AdjustData(frameFactor); }
 
     int i = 0, j = 1;
     for (; j < totalData.size(); ++i, ++j) {

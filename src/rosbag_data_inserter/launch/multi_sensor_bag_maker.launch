@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<launch>
+    <!--  param to change: 'src_bag_path', 'dst_bag_path', 'imu_filename', 'image_timestamp_filename', 'image_dir'  -->
+    <node pkg="rosbag_data_inserter" type="multi_sensor_bag_maker" name="multi_sensor_bag_maker_node"
+          output="screen">
+
+        <!-- lidar bag -->
+        <param name="src_velodyne_bag_path" value="/home/csl/dataset/data_515/data_2023515173037/lidar/lidar-VLP.bag"
+               type="string"/>
+
+        <!-- livox bag -->
+        <param name="src_livox_bag_path" value="/home/csl/dataset/data_515/data_2023515173037/lidar/lidar-Livox.bag"
+               type="string"/>
+
+        <!-- out put bag path -->
+        <param name="dst_bag_path" value="/home/csl/dataset/data_515/data_2023515173037/lidar_imu_camera.bag"
+               type="string"/>
+
+        <!-- imu0 data file -->
+        <param name="imu0_filename" value="/home/csl/dataset/data_515/data_2023515173037/imu0_adis_new.txt"
+               type="string"/>
+
+        <!-- imu1 data file -->
+        <param name="imu1_filename" value="/home/csl/dataset/data_515/data_2023515173037/imu1_adis_new.txt"
+               type="string"/>
+
+        <!-- gs camera -->
+        <param name="gs_image_timestamp_filename"
+               value="/home/csl/dataset/data_515/data_2023515173037/stamp_rearrange_cam_gs.txt" type="string"/>
+        <param name="gs_image_dir" value="/home/csl/dataset/data_515/data_2023515173037/image_rearrange/cam_gs"
+               type="string"/>
+
+        <!-- rs camera -->
+        <param name="rs_image_timestamp_filename"
+               value="/home/csl/dataset/data_515/data_2023515173037/stamp_rearrange_cam_rs.txt" type="string"/>
+        <param name="rs_image_dir" value="/home/csl/dataset/data_515/data_2023515173037/image_rearrange/cam_rs"
+               type="string"/>
+
+        <!-- velodyne msg info -->
+        <param name="velodyne_src_topic" value="/velodyne_points" type="string"/>
+        <param name="velodyne_dst_topic" value="/velodyne_raw_frames" type="string"/>
+        <param name="velodyne_dst_frame_id" value="velodyne" type="string"/>
+
+        <!-- livox msg info -->
+        <param name="livox_src_topic" value="/livox/lidar" type="string"/>
+        <param name="livox_dst_topic" value="/livox_raw_frames" type="string"/>
+        <param name="livox_dst_frame_id" value="livox" type="string"/>
+
+        <!-- imu 0 msg info -->
+        <param name="imu0_dst_topic" value="/imu0_raw_frames" type="string"/>
+        <param name="imu0_dst_frame_id" value="imu0" type="string"/>
+
+        <!-- imu 1 msg info -->
+        <param name="imu1_dst_topic" value="/imu1_raw_frames" type="string"/>
+        <param name="imu1_dst_frame_id" value="imu1" type="string"/>
+
+        <!-- gs camera msg info -->
+        <param name="gs_camera_dst_topic" value="/cam_gs_raw_frames" type="string"/>
+        <param name="gs_camera_dst_frame_id" value="cam_gs" type="string"/>
+
+        <!-- rs camera msg info -->
+        <param name="rs_camera_dst_topic" value="/cam_rs_raw_frames" type="string"/>
+        <param name="rs_camera_dst_frame_id" value="cam_rs" type="string"/>
+
+        <param name="gps_week" value="2262" type="int"/>
+
+    </node>
+</launch>
